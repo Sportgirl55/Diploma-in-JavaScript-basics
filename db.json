@@ -60,6 +60,18 @@
         "EUR": 600,
         "NTC": 90000
       }
+    },
+    {
+      "created_at": "2020-09-20T13:52:01.436Z",
+      "login": "sportgirl55@rambler.ru",
+      "password": "sportgirl",
+      "id": 6,
+      "balance": {
+        "RUB": 0,
+        "USD": 0,
+        "EUR": 0,
+        "NTC": 0
+      }
     }
   ],
   "favorites": {
