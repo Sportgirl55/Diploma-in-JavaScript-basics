@@ -1,5 +1,7 @@
 "use strict";
 
+// Выход из личного кабинета
+
 const logoutButton = new LogoutButton();
 logoutButton.action = function () {
      ApiConnector.logout(response => {
@@ -9,6 +11,7 @@ logoutButton.action = function () {
      });
 }
 
+// Получение информации о пользователе
 
 ApiConnector.current(response => {
      if (response.success) {
@@ -16,40 +19,112 @@ ApiConnector.current(response => {
      } 
 });
 
+// Получение текущих курсов валюты
 
 const ratesBoard = new RatesBoard ();
-     ratesBoard.getStocks = function () {
-          Apiconnector.getStocks (response => {
-               if (response.success) {
-                    ratesBoard.clearTable(response.data);
-                    ratesBoard.fillTable(response.data);
-               } 
-          })
-     };
+function getStocks () {   
+     ApiConnector.getStocks (response => {
+          if (response.success) {
+               ratesBoard.clearTable(response.data);
+               ratesBoard.fillTable(response.data);
+          } 
+     })
+    
+};
+
+getStocks ();
+
+setInterval (getStocks, 60000);
+
+
+// ОПЕРАЦИИ С ВАЛЮТАМИ
+
 
 const moneyManager = new MoneyManager ();
+
+// Функция пополнения баланса
+
 moneyManager.addMoneyCallback = function (data) {
-     Apiconnector.addMoney(response => {
+     ApiConnector.addMoney(data, response => {
           if (response.success) {
-               moneyManager.showProfile(response.data);
+               ProfileWidget.showProfile(response.data);
+               moneyManager.setMessage(response, "Баланс пополнен");
+          } else {
+               moneyManager.setMessage(response.isSuccess, "Ошибка. Баланс не может быть пополнен");
+          }
+     });
+}
+
+// Функция конвертации валюты
+
+moneyManager.conversionMoneyCallback = function (data) {
+     ApiConnector.convertMoney(data, response => {
+          if (response.success) {
+               ProfileWidget.showProfile(response.data);
+               moneyManager.setMessage(response, "Конвертация прошла успешно");
+          } else {
+               moneyManager.setMessage(response.isSuccess, "Ошибка. Конвертация не может быть выполнена");
+          }
+     });
+}
+
+// Функция перевода валюты
+
+moneyManager.sendMoneyCallback = function (data) {
+     ApiConnector.transferMoney(data, response => {
+          if (response.success) {
+               ProfileWidget.showProfile(response.data);
+               moneyManager.setMessage(response, "Перевод осуществлен успешно");
+          } else {
+               moneyManager.setMessage(response.isSuccess, "Ошибка. Перевод не может быть осуществлен");
+          }
+     });
+}
+
+// ОПЕРАЦИИ С ИЗБРАННЫМ
+
+const favoritesWidget = new FavoritesWidget ();
+
+// Вывод списка избранного
+
+     ApiConnector.getFavorites(response => {
+          if (response.success) {
+               favoritesWidget.clearTable(response.data);
+               favoritesWidget.fillTable(response.data);
+               moneyManager.updateUsersList(response.data);
           } 
+     });
+
+// Добавление пользователя в список избранного
+
+     favoritesWidget.addUserCallback = function (data) {
+          ApiConnector.addUserToFavorites (data, response => {
+               if (response.success) {
+                    favoritesWidget.clearTable(response.data);
+                    favoritesWidget.fillTable(response.data);
+                    moneyManager.updateUsersList(response.data);
+                    favoritesWidget.setMessage(response, "Пользователь успешно добавлен в избранное");
+               } else {
+                    favoritesWidget.setMessage(response.isSuccess, "Ошибка. Пользователь не может быть добавлен");
+               }
+     });
+}
+
+// Удаление пользователя из списка избранного
+
+     favoritesWidget.removeUserCallback = function (data) {
+          ApiConnector.removeUserFromFavorites (data, response => {
+               if (response.success) {
+                    favoritesWidget.clearTable(response.data);
+                    favoritesWidget.fillTable(response.data);
+                    moneyManager.updateUsersList(response.data);
+                    favoritesWidget.setMessage(response, "Пользователь успешно удален из избранного");
+               } else {
+                    favoritesWidget.setMessage(response.isSuccess, "Ошибка. Пользователь не может быть удален");
+               }
      });
 }
 
 
-
-
-
-
-
-
-
-// Реализуйте пополнение баланса:
-// Запишите в свойство addMoneyCallback функцию, которая будет выполнять запрос.
-// Внутри функции выполните запрос на пополнение баланса (addMoney).
-// Используйте аргумент функции свойства addMoneyCallback для передачи данных data в запрос.
-// После выполнения запроса выполните проверку успешности запроса.
-// В случае успешного запроса отобразите в профиле новые данные о пользователе из данных ответа от сервера (showProfile).
-// Также выведите сообщение об успехе или ошибку (причину неудачного действия) пополнении баланса в окне отображения сообщения (setMessage).
 
 
