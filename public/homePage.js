@@ -50,7 +50,7 @@ moneyManager.addMoneyCallback = function (data) {
                ProfileWidget.showProfile(response.data);
                moneyManager.setMessage(response, "Баланс пополнен");
           } else {
-               moneyManager.setMessage(response.isSuccess, "Ошибка. Баланс не может быть пополнен");
+               moneyManager.setMessage(!response, "Ошибка. Баланс не может быть пополнен");
           }
      });
 }
@@ -63,7 +63,7 @@ moneyManager.conversionMoneyCallback = function (data) {
                ProfileWidget.showProfile(response.data);
                moneyManager.setMessage(response, "Конвертация прошла успешно");
           } else {
-               moneyManager.setMessage(response.isSuccess, "Ошибка. Конвертация не может быть выполнена");
+               moneyManager.setMessage(!response, "Ошибка. Конвертация не может быть выполнена");
           }
      });
 }
@@ -76,7 +76,7 @@ moneyManager.sendMoneyCallback = function (data) {
                ProfileWidget.showProfile(response.data);
                moneyManager.setMessage(response, "Перевод осуществлен успешно");
           } else {
-               moneyManager.setMessage(response.isSuccess, "Ошибка. Перевод не может быть осуществлен");
+               moneyManager.setMessage(!response, "Ошибка. Перевод не может быть осуществлен");
           }
      });
 }
@@ -105,7 +105,7 @@ const favoritesWidget = new FavoritesWidget ();
                     moneyManager.updateUsersList(response.data);
                     favoritesWidget.setMessage(response, "Пользователь успешно добавлен в избранное");
                } else {
-                    favoritesWidget.setMessage(response.isSuccess, "Ошибка. Пользователь не может быть добавлен");
+                    favoritesWidget.setMessage(!response, "Ошибка. Пользователь не может быть добавлен");
                }
      });
 }
@@ -120,7 +120,7 @@ const favoritesWidget = new FavoritesWidget ();
                     moneyManager.updateUsersList(response.data);
                     favoritesWidget.setMessage(response, "Пользователь успешно удален из избранного");
                } else {
-                    favoritesWidget.setMessage(response.isSuccess, "Ошибка. Пользователь не может быть удален");
+                    favoritesWidget.setMessage(!response, "Ошибка. Пользователь не может быть удален");
                }
      });
 }

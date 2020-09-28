@@ -6,7 +6,7 @@
       "password": "demo",
       "id": 1,
       "balance": {
-        "RUB": 27210,
+        "RUB": 27216,
         "USD": 5799.411998255651,
         "EUR": 553673.6153883901,
         "NTC": 4300
@@ -79,10 +79,34 @@
       "password": "greatfan",
       "id": 7,
       "balance": {
-        "RUB": 906.3331895156941,
+        "RUB": 900.3331895156941,
         "USD": 0,
-        "EUR": 54,
-        "NTC": 5389
+        "EUR": 6629,
+        "NTC": 5479
+      }
+    },
+    {
+      "created_at": "2020-09-28T10:14:58.654Z",
+      "login": "sportgirl55@bk.ru",
+      "password": "кенк",
+      "id": 8,
+      "balance": {
+        "RUB": 0,
+        "USD": 0,
+        "EUR": 0,
+        "NTC": 0
+      }
+    },
+    {
+      "created_at": "2020-09-28T13:38:05.490Z",
+      "login": "hjmhg",
+      "password": "hj,gh",
+      "id": 9,
+      "balance": {
+        "RUB": 0,
+        "USD": 0,
+        "EUR": 0,
+        "NTC": 0
       }
     }
   ],
@@ -105,6 +129,11 @@
       "3": "Дедуля",
       "4": "Галя"
     },
-    "7": {}
+    "7": {
+      "1": "dsfvdv"
+    },
+    "8": {
+      "4": "sdfgd"
+    }
   }
 }

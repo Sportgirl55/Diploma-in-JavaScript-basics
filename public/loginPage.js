@@ -7,7 +7,7 @@ newUser.loginFormCallback = function (data) {
           if (response.success) {
                location.reload();
           } else {
-          newUser.setloginErrorMessage(response.error);
+          newUser.setLoginErrorMessage(response.error);
           } 
      });
 } 
